@@ -286,15 +286,10 @@
         }
 
         public function onReceive($para) {
-          IPS_LogMessage("Test onReceive", $para);
+          IPS_LogMessage("Test onReceive", print_r($para);
             $scriptid = $this->ReadPropertyInteger("script");
             IPS_RunScriptEx($scriptid,$para);
         }
-
-        public function ForwardData($JSONString) {
-          IPS_LogMessage("Test ForwardData", $JSONString);
-        }
-
 
 
         //------------------------------------------------------------------------
