@@ -9,7 +9,7 @@
  */
     include_once(__DIR__ . "/../module_helper.php");
     include_once(__DIR__ . "/TFphpMQTT.php");
-    
+
     // Klassendefinition
     class MQTTClient extends T2FModule {
         //------------------------------------------------------------------------------
@@ -33,9 +33,9 @@
          * @var boolean $retained
          */
         private $retained=false;
-        
+
         private $mqtt;
-        
+
         // Der Konstruktor des Moduls
         public function __construct($InstanceID)
         {
@@ -50,12 +50,12 @@
                 $this->mqtt = NULL;
             }
         }
- 
+
         // Überschreibt die interne IPS_Create($id) Funktion
         public function Create() {
             // Diese Zeile nicht löschen.
             parent::Create();
- 
+
             // Selbsterstellter Code
             $this->RegisterPropertyString('ClientID', 'symcon');
             $this->RegisterPropertyString('User', '');
@@ -67,7 +67,7 @@
             $this->RegisterMessage(0, self::IPS_KERNELMESSAGE );
 
         }
- 
+
         //--------------------------------------------------------
         /**
          * overwrite internal IPS_ApplChanges($id) function
@@ -90,9 +90,9 @@
                 $this->debug(__FUNCTION__,"Modul deaktiviert");  // Debug Fenster
                 $this->MQTTDisconnect();
             }
-            
+
         }
- 
+
         //------------------------------------------------------------------------------
        /**
         * Get Property category name to be created and used for Device Instnaces
@@ -112,7 +112,7 @@
        {
            return (String)IPS_GetProperty($this->InstanceID, 'Password');
        }
-        
+
         //------------------------------------------------------------------------------
         /**
          * Get Property Port
@@ -135,8 +135,8 @@
             return $data['ConnectionID'];
         }
 
-        
-        
+
+
     //------------------------------------------------------------------------------
     //---Events
     //------------------------------------------------------------------------------
@@ -178,7 +178,7 @@
                             $this->MQTTDisconnect();
                             break;
                         default:
-                            IPS_LogMessage(__CLASS__,__FUNCTION__."I/O Modul unbekantes Ereignis ".$Data[0]);                     
+                            IPS_LogMessage(__CLASS__,__FUNCTION__."I/O Modul unbekantes Ereignis ".$Data[0]);
                             break;
                     }
                     break;
@@ -198,7 +198,7 @@
                             IPS_ApplyChanges($this->InstanceID);
                             IPS_LogMessage(__CLASS__,__FUNCTION__." KR_UNINIT ->disconnect()");
                             break;  */
-                        
+
                         default:
                             IPS_LogMessage(__CLASS__,__FUNCTION__." Kernelmessage unhahndled, ID".$kmsg);
                             break;
@@ -211,7 +211,7 @@
 //            $this->debug(__FUNCTION__,"leaved");
 
         }
-        
+
         //------------------------------------------------------------------------------
         //Data Interfaces to parant
         //------------------------------------------------------------------------------
@@ -246,9 +246,9 @@
                         $this->debug(__FUNCTION__, strToHex($buffer));
                         $this->mqtt->receive($buffer);
                         $sClass = serialize($this->mqtt);
-                        $this->SetBuffer ("MQTT",$sClass);   
+                        $this->SetBuffer ("MQTT",$sClass);
                         // Ping Timer neu setzen
-                        // $this->RegisterTimerNow('Ping', $this->mqtt->keepalive*1000,  'MQTT_TimerEvent('.$this->InstanceID.');');                            
+                        // $this->RegisterTimerNow('Ping', $this->mqtt->keepalive*1000,  'MQTT_TimerEvent('.$this->InstanceID.');');
                     }//target
                 }//dataid
                 else {
@@ -258,7 +258,7 @@
                 $this->debug(__FUNCTION__, 'strlen(JSONString) == 0');
             }//else len json
         }//func
- 
+
         /**
          * Data Interface tp Parent (IO-TX)
          * Forward commands to IO Instance
@@ -277,19 +277,25 @@
             } else {
                 $this->debug(__FUNCTION__, 'No Parent');
             }
-            $this->RegisterTimerNow('Ping', $this->mqtt->keepalive*1000,  'MQTT_TimerEvent('.$this->InstanceID.');');                            
+            $this->RegisterTimerNow('Ping', $this->mqtt->keepalive*1000,  'MQTT_TimerEvent('.$this->InstanceID.');');
             return $res;
 
         }//function
         public function onDebug($topic, $data) {
             $this->debug($topic, $data);
         }
- 
+
         public function onReceive($para) {
             $scriptid = $this->ReadPropertyInteger("script");
             IPS_RunScriptEx($scriptid,$para);
         }
-        
+
+        public function ForwardData($JSONString) {
+          IPS_LogMessage("Test ForwardData", $JSONString);
+        }
+
+
+
         //------------------------------------------------------------------------
         //
         //------------------------------------------------------------------------
@@ -298,7 +304,7 @@
             if (!is_null($this->mqtt)){
                $this->mqtt->ping();
             }
-        }        
+        }
         //------------------------------------------------------------------------
         //
         //------------------------------------------------------------------------
@@ -306,10 +312,10 @@
             if (!is_null($this->mqtt)){
                 $this->mqtt->publish($topic, $content, $qos, $retain);
             }else {
-                $this->debug(__FUNCTION__,"Error, Publish nicht möglich");               
+                $this->debug(__FUNCTION__,"Error, Publish nicht möglich");
             }
-        }     
-        
+        }
+
         //------------------------------------------------------------------------
         //
         //------------------------------------------------------------------------
@@ -317,10 +323,10 @@
             if (!is_null($this->mqtt)){
                 $this->mqtt->subscribe($topic, $qos);
             }else {
-                $this->debug(__FUNCTION__,"Error, Subscribe nicht möglich");               
+                $this->debug(__FUNCTION__,"Error, Subscribe nicht möglich");
             }
-        }     
-       
+        }
+
         //------------------------------------------------------------------------
         //
         //------------------------------------------------------------------------
@@ -328,23 +334,23 @@
             $cID=$this->GetConnectionID();
             if(is_null($this->mqtt)){
                 IPS_SetProperty($cID, "Open", true); //I/O Instanz soll aktiviert sein.
-                $ok = @IPS_ApplyChanges($cID); //Neue Konfiguration übernehmen                    
+                $ok = @IPS_ApplyChanges($cID); //Neue Konfiguration übernehmen
                 $clientid=$this->GetClientID();
-                
+
                 if ($ok) {
                     $username=$this->GetUser();
                     $password=$this->GetPassword();
-                    $owner = $this; 
+                    $owner = $this;
                     $this->mqtt = new phpMQTT($owner,$clientid);
                     // callback Funktionen
                     $this->mqtt->onSend = 'onSendText';
                     $this->mqtt->onDebug = 'onDebug';
                     $this->mqtt->onReceive = 'onReceive';
-                    $this->mqtt->debug = true;  
+                    $this->mqtt->debug = true;
                     if ($this->mqtt -> connect(true,null,$username,$password)) {
                         $this->debug(__FUNCTION__,"Connected to ClientID $clientid");
                         $this->OSave($this->mqtt,"MQTT");
-                        $this->RegisterTimerNow('Ping', $this->mqtt->keepalive*1000,  'MQTT_TimerEvent('.$this->InstanceID.');');    
+                        $this->RegisterTimerNow('Ping', $this->mqtt->keepalive*1000,  'MQTT_TimerEvent('.$this->InstanceID.');');
                     }else{
                         $ok = FALSE;
                     }
@@ -352,7 +358,7 @@
                     IPS_LogMessage(__CLASS__,__FUNCTION__."::Connect to ClientID $clientid failed");
                     $this->debug(__FUNCTION__,"Connect to ClientID $clientid failed");
                     IPS_SetProperty($cID, "Open", false);
-                    IPS_ApplyChanges($cID); //Neue Konfiguration übernehmen                    
+                    IPS_ApplyChanges($cID); //Neue Konfiguration übernehmen
                 }
             }
         }
@@ -369,11 +375,11 @@
             if($cID <> 0){
                 IF (IPS_GetProperty($cID,"Open")){
                     IPS_SetProperty($cID, "Open", FALSE); //I/O Instanz soll aktiviert sein.
-                    IPS_ApplyChanges($cID); //Neue Konfiguration übernehmen  
-                }                                              
+                    IPS_ApplyChanges($cID); //Neue Konfiguration übernehmen
+                }
             }
-            $this->RegisterTimerNow('Ping', 0,  'MQTT_TimerEvent('.$this->InstanceID.');');    
-            if($this->GetInstanceStatus() == self::ST_AKTIV ){       
+            $this->RegisterTimerNow('Ping', 0,  'MQTT_TimerEvent('.$this->InstanceID.');');
+            if($this->GetInstanceStatus() == self::ST_AKTIV ){
                 $this->MQTTConnect();
             }
         }
@@ -386,7 +392,7 @@
             }else{
                 $sClass = serialize($object);
             }
-            $this->SetBuffer ($name,$sClass);    
+            $this->SetBuffer ($name,$sClass);
         }
     }
 ?>
