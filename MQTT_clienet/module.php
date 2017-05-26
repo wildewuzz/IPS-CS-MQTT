@@ -286,7 +286,7 @@
         }
 
         public function onReceive($para) {
-          IPS_LogMessage("Test onReceive", print_r($para);
+          IPS_LogMessage("Test onReceive", print_r($para));
             $scriptid = $this->ReadPropertyInteger("script");
             IPS_RunScriptEx($scriptid,$para);
         }
