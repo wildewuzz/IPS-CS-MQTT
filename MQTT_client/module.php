@@ -61,7 +61,7 @@
             $this->RegisterPropertyString('User', '');
             $this->RegisterPropertyString('Password', '');
             $this->RegisterPropertyBoolean('Active', false);
-            $this->RegisterPropertyInteger('script', 0);
+            //$this->RegisterPropertyInteger('script', 0);
 
             //register status msg
             $this->RegisterMessage(0, self::IPS_KERNELMESSAGE );
