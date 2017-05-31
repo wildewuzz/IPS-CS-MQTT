@@ -57,6 +57,7 @@
             parent::Create();
 
             // Selbsterstellter Code
+            $this->RequireParent("{3CFF0FD9-E306-41DB-9B5A-9D06D38576C3}", "MQTT Client Socket");    
             $this->RegisterPropertyString('ClientID', 'symcon');
             $this->RegisterPropertyString('User', '');
             $this->RegisterPropertyString('Password', '');
