@@ -57,7 +57,7 @@
             parent::Create();
 
             // Selbsterstellter Code
-            $this->RequireParent("{3CFF0FD9-E306-41DB-9B5A-9D06D38576C3}");    
+            $this->RequireParent("{3CFF0FD9-E306-41DB-9B5A-9D06D38576C3}");
             $this->RegisterPropertyString('ClientID', 'symcon');
             $this->RegisterPropertyString('User', '');
             $this->RegisterPropertyString('Password', '');
@@ -287,7 +287,7 @@
             } else {
                 $this->debug(__FUNCTION__, 'No Parent');
             }
-            $this->RegisterTimerNow('Ping', $this->mqtt->keepalive*1000,  'MQTT_TimerEvent('.$this->InstanceID.');');
+            $this->RegisterTimerNow('Ping', $this->mqtt->keepalive*1000,  'KSMQTT_TimerEvent('.$this->InstanceID.');');
             return $res;
 
         }//function
@@ -364,7 +364,7 @@
                     if ($this->mqtt -> connect(true,null,$username,$password)) {
                         $this->debug(__FUNCTION__,"Connected to ClientID $clientid");
                         $this->OSave($this->mqtt,"MQTT");
-                        $this->RegisterTimerNow('Ping', $this->mqtt->keepalive*1000,  'MQTT_TimerEvent('.$this->InstanceID.');');
+                        $this->RegisterTimerNow('Ping', $this->mqtt->keepalive*1000,  'KSMQTT_TimerEvent('.$this->InstanceID.');');
                     }else{
                         $ok = FALSE;
                     }
@@ -392,7 +392,7 @@
                     IPS_ApplyChanges($cID); //Neue Konfiguration Ã¼bernehmen
                 }
             }
-            $this->RegisterTimerNow('Ping', 0,  'MQTT_TimerEvent('.$this->InstanceID.');');
+            $this->RegisterTimerNow('Ping', 0,  'KSMQTT_TimerEvent('.$this->InstanceID.');');
             if($this->GetInstanceStatus() == self::ST_AKTIV ){
                 $this->MQTTConnect();
             }
