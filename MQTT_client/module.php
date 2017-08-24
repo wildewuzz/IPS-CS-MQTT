@@ -275,7 +275,7 @@
          * @param String $Data
          * @return bool
          */
-        public function onSendText($Data)
+        public function onSendText(string $Data)
         {
             $res = false;
             $json = json_encode(
@@ -291,11 +291,11 @@
             return $res;
 
         }//function
-        public function onDebug($topic, $data) {
+        public function onDebug(string $topic, string $data) {
             $this->debug($topic, $data);
         }
 
-        public function onReceive($para) {
+        public function onReceive(string $para) {
 			//IPS_LogMessage("Test onReceive", print_r($para,true));
             //$scriptid = $this->ReadPropertyInteger("script");
             //IPS_RunScriptEx($scriptid,$para);
@@ -322,7 +322,7 @@
         //------------------------------------------------------------------------
         //
         //------------------------------------------------------------------------
-        public function Publish($topic, $content, $qos = 0, $retain = 0) {
+        public function Publish(string $topic, string $content, $qos = 0, $retain = 0) {
             if (!is_null($this->mqtt)){
                 $this->mqtt->publish($topic, $content, $qos, $retain);
             }else {
@@ -333,7 +333,7 @@
         //------------------------------------------------------------------------
         //
         //------------------------------------------------------------------------
-        public function Subscribe($topic, $qos = 0) {
+        public function Subscribe(string $topic, $qos = 0) {
             if (!is_null($this->mqtt)){
                 $this->mqtt->subscribe($topic, $qos);
             }else {
