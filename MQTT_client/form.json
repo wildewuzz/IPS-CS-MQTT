@@ -1,9 +1,0 @@
-{
-	"elements":
-	[
-		{ "name": "Active", "type": "CheckBox", "caption": "Activate Instance" },
-		{ "name": "User", "type": "ValidationTextBox", "caption": "Benutzer" },
-		{ "name": "Password", "type": "PasswordTextBox", "caption": "Passwort" },
-    { "name": "ClientID", "type": "ValidationTextBox", "caption": "MQTT ClientID" },
-	]
-}

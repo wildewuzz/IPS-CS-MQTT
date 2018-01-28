@@ -341,8 +341,8 @@ class phpMQTT {
 	/* message: processes a recieved topic */
 	function message($msg){
             $tlen = (ord($msg{0})<<8) + ord($msg{1});
-            $topic =utf8_decode( substr($msg,2,$tlen));
-            $msg = utf8_decode( substr($msg,($tlen+2)));
+            $topic = substr($msg,2,$tlen);
+            $msg = substr($msg,($tlen+2));
             $cmd = "MQTT_GET_PAYLOAD";
             
             if($this->debug){
