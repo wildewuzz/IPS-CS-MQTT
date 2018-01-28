@@ -1,25 +1,6 @@
-# IPS_MQTT
-MQTT Modul für IP-Symcon 4.1
+# IPS-KS-MQTT
+Das originale Module ist von thomasf68 (https://github.com/thomasf68/IPS_MQTT).
 
-Das Modul unterstützt das minimal Nötige um über MQTT Daten Sendent und Empangen zu können.
+Es gibt eine kleine Änderung in diesem Modul, dieses Modul kann für Scripte genutzt werden, wie es von thomasf68 vorgesehen ist und für Module.
 
-
-Befehle:
-    
-    MQTT_Subscribe($topic, $qos = 0)
-
-    MQTT_Publish($topic, $content, $qos = 0, $retain = 0)
-
-Ereignisse:
-
-    MQTT_GET_PAYLOAD
-
-        Es wurden Nutzdaten Empfangen
-
-    MQTT_CONNECT
-
-        Ein Connect mit dem MQTT Broaker ist abgeschlossen
-        
-Unter /IPS Scripte/MQTT_clienet/Handel.php liegt ein Beispiel wie auf Ereignisse von dem Modul reagiert werden kann.
-Das Script 'Publish.php' benutze ich um veränderte Variablen aus IPS zu senden.
-Mit den beiden Beispiel Scripten Sende ich Variablen Veränderungen von einem IPS zu einem Anderen. 
+In den Einstellungen kann der Modul Typ festgelegt werden, um es in Modulen nutzen zu können muss der Typ auf Forward gesetzt werden.
