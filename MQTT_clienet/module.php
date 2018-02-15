@@ -177,7 +177,7 @@
                         case self::ST_INACTIV:
                             $this->debug(__CLASS__,__FUNCTION__."I/O Modul > Deaktiviert");
                             if($this->GetInstanceStatus() == self::ST_AKTIV ){
-                                //$this->MQTTConnect();
+                                $this->MQTTConnect();
                             }
                             break;
                         case self::ST_ERROR_0:
@@ -195,9 +195,7 @@
 
                         case self::KR_READY:
                             IPS_LogMessage(__CLASS__,__FUNCTION__." KR_Ready ->reconect");
-                            $this->MQTTDisconnect();
-                             $this->MQTTConnect();
-                           //
+                           // $this->MQTTDisconnect(5);
                             break;
  /*
                         case self::KR_UNINIT:
@@ -377,14 +375,13 @@
             IPS_LogMessage(__CLASS__,__FUNCTION__."::Connect to cliend start");
             $cID=$this->GetConnectionID();
             // sicherstellen das die Verbindung geschlossen ist
- /**           if($cID <> 0){
+            if($cID <> 0){
                 IF (@IPS_GetProperty($cID,"Open")){
                     IPS_SetProperty($cID, "Open", FALSE); //I/O Instanz soll aktiviert sein.
                     IPS_ApplyChanges($cID); //Neue Konfiguration übernehmen
                 }
             }
-  * **/
-            IPS_Sleep(200);
+            IPS_Sleep(3000);
             if(is_null($this->mqtt)){
                 $ok = @IPS_SetProperty($cID, "Open", true); //I/O Instanz soll aktiviert sein.
                 if($ok){
