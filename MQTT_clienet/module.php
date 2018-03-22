@@ -308,7 +308,7 @@
         }
 
         public function onReceive($para) {
-
+//IPS_LogMessage("para", print_r($para,1));
             if($para['SENDER']=='MQTT_CONNECT'){
                 $clientid=$this->GetClientID();
                 IPS_LogMessage(__CLASS__,__FUNCTION__."::Connection to ClientID $clientid run");
@@ -329,13 +329,16 @@
                   IPS_LogMessage(__CLASS__,__FUNCTION__."::Connection to ClientID $clientid run");
               }
               $JSON['DataID'] = "{018EF6B5-AB94-40C6-AA53-46943E824ACF}";
-              $JSON['Buffer'] = json_encode($para,JSON_UNESCAPED_UNICODE);
-              $this->SendDebug('SendDataToChildrenPara',$para["SENDER"], 0);
-              $Data = json_encode($JSON);
-              if (gettype($JSON['Buffer']) == "string") {
-                  $this->SendDebug("Type",$JSON['Buffer'],0);
-                  $this->SendDebug('SendDataToChildren',$Data, 0);
-                  $this->SendDataToChildren($Data);
+              $JSON['Buffer'] = json_encode($para);
+              //IPS_LogMessage("json error", json_last_error());
+              if (json_last_error() <> 0) {
+                  $this->SendDebug('SendDataToChildrenPara',$para["SENDER"], 0);
+                  $Data = json_encode($JSON);
+                  if (gettype($JSON['Buffer']) == "string") {
+                      $this->SendDebug("Type",$JSON['Buffer'],0);
+                      $this->SendDebug('SendDataToChildren',$Data, 0);
+                      $this->SendDataToChildren($Data);
+                  }
               }
              /** else {
                   //$this->SendDebug("Type Test",gettype($JSON['Buffer']),0);
