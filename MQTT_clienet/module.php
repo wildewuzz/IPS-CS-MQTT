@@ -329,8 +329,7 @@
               }
 
                   $JSON['DataID'] = "{018EF6B5-AB94-40C6-AA53-46943E824ACF}";
-                  $JSON['Buffer'] = $para;
-                  //$JSON['Buffer'] = json_encode($para);
+                  $JSON['Buffer'] = json_encode($para);
                     $Data = json_encode($JSON);
                     //if (gettype($JSON['Buffer']) == "string") {
                         $this->SendDebug("Type", $JSON['Buffer'], 0);
