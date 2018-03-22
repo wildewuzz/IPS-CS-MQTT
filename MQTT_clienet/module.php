@@ -331,7 +331,7 @@
               $JSON['DataID'] = "{018EF6B5-AB94-40C6-AA53-46943E824ACF}";
               $JSON['Buffer'] = json_encode($para);
               //IPS_LogMessage("json error", json_last_error());
-              if (json_last_error() <> JSON_ERROR_NONE) {
+              if (json_last_error() == JSON_ERROR_NONE) {
                   $this->SendDebug('SendDataToChildrenPara',$para["SENDER"], 0);
                   $Data = json_encode($JSON);
                   if (gettype($JSON['Buffer']) == "string") {
