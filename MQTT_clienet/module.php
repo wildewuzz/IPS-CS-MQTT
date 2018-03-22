@@ -332,11 +332,11 @@
               $JSON['Buffer'] = json_encode($para);
               $this->SendDebug('SendDataToChildrenPara',$para["SENDER"], 0);
               $Data = json_encode($JSON);
-              //if (gettype($JSON['Buffer']) == "string") {
+              if (gettype($JSON['Buffer']) == "string") {
                   $this->SendDebug("Type",$JSON['Buffer'],0);
                   $this->SendDebug('SendDataToChildren',$Data, 0);
                   $this->SendDataToChildren($Data);
-              //}
+              }
              /** else {
                   //$this->SendDebug("Type Test",gettype($JSON['Buffer']),0);
                   IPS_LogMessage("Type Test", gettype($JSON['Buffer']));
