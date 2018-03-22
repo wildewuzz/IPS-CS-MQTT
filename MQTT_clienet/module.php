@@ -272,7 +272,7 @@
         }//func
 
         public function ForwardData($JSONString) {
-    			$this->debug(__FUNCTION__, 'Data arrived:' . $JSONString);
+    			$this->debug(__FUNCTION__, 'Data Forward:' . $JSONString);
     			$data = json_decode($JSONString);
     			$Buffer = utf8_decode($data->Buffer);
     			$Buffer = json_decode($data->Buffer);
@@ -308,6 +308,7 @@
         }
 
         public function onReceive($para) {
+
             if($para['SENDER']=='MQTT_CONNECT'){
                 $clientid=$this->GetClientID();
                 IPS_LogMessage(__CLASS__,__FUNCTION__."::Connection to ClientID $clientid run");
@@ -331,8 +332,17 @@
               $JSON['Buffer'] = json_encode($para);
               $this->SendDebug('SendDataToChildrenPara',$para["SENDER"], 0);
               $Data = json_encode($JSON);
-              $this->SendDebug('SendDataToChildren',$Data, 0);
-              $this->SendDataToChildren($Data);
+              //if (gettype($JSON['Buffer']) == "string") {
+                  $this->SendDebug("Type",$JSON['Buffer'],0);
+                  $this->SendDebug('SendDataToChildren',$Data, 0);
+                  $this->SendDataToChildren($Data);
+              //}
+             /** else {
+                  //$this->SendDebug("Type Test",gettype($JSON['Buffer']),0);
+                  IPS_LogMessage("Type Test", gettype($JSON['Buffer']));
+                  IPS_LogMessage("Type Test", print_r($para,1));
+              } **/
+
             }
         }
 
