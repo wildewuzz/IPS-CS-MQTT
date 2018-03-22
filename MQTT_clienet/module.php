@@ -329,7 +329,7 @@
                   IPS_LogMessage(__CLASS__,__FUNCTION__."::Connection to ClientID $clientid run");
               }
               $JSON['DataID'] = "{018EF6B5-AB94-40C6-AA53-46943E824ACF}";
-              $JSON['Buffer'] = json_encode($para);
+              $JSON['Buffer'] = json_encode($para,JSON_UNESCAPED_UNICODE);
               $this->SendDebug('SendDataToChildrenPara',$para["SENDER"], 0);
               $Data = json_encode($JSON);
               if (gettype($JSON['Buffer']) == "string") {
