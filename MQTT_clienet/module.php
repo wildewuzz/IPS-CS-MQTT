@@ -65,7 +65,7 @@
             $this->RegisterPropertyString('User', '');
             $this->RegisterPropertyString('Password', '');
             $this->RegisterPropertyBoolean('Active', false);
-            $this->RegisterPropertyInteger('ModuleType', 1);
+            $this->RegisterPropertyInteger('ModuleType', 2 );
             $this->RegisterPropertyInteger('script', 0);
 
             //register status msg
