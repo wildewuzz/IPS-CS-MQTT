@@ -483,8 +483,8 @@ class IPS_KS_MQTTClient extends T2FModule {
         $cID=$this->GetConnectionID();
         if($cID <> 0){
             IF (IPS_GetProperty($cID,"Open")){
-                IPS_SetProperty($cID, "Open", FALSE); //I/O Instanz soll aktiviert sein.
-                IPS_ApplyChanges($cID); //Neue Konfiguration übernehmen
+                //IPS_SetProperty($cID, "Open", FALSE); //I/O Instanz soll aktiviert sein.
+                //IPS_ApplyChanges($cID); //Neue Konfiguration übernehmen
             }
         }
         $this->RegisterTimerNow('Ping', 0,  'KSMQTT_TimerEvent('.$this->InstanceID.');');
