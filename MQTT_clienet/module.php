@@ -90,11 +90,13 @@ class IPS_KS_MQTTClient extends T2FModule {
         $this->RegisterMessage(0, 10001);
         $this->RegisterMessage(0,10403);
         $cID = $this->GetConnectionID();
-        if($cID <> 0){
-            $this->RegisterMessage($cID,self::IM_CHANGESTATUS);
-            $cID=$this->GetConnectionID();
-            IPS_SetProperty($cID, "Open", TRUE); //I/O Instanz soll aktiviert sein.
-            IPS_ApplyChanges($cID); //Neue Konfiguration übernehmen
+        if($cID <> 0) {
+            $this->RegisterMessage($cID, self::IM_CHANGESTATUS);
+            $cID = $this->GetConnectionID();
+            if (IPS_GetProperty($cID, "Host") != NULL and IPS_GetProperty($cID, "Port") != 0) {
+                IPS_SetProperty($cID, "Open", TRUE); //I/O Instanz soll aktiviert sein.
+                IPS_ApplyChanges($cID); //Neue Konfiguration übernehmen
+            }
         }
 
         // Diese Zeile nicht loeschen
