@@ -29,6 +29,7 @@ class T2FModule extends IPSModule
      * IPS Message IDs
      * @see https://www.symcon.de/service/dokumentation/entwicklerbereich/sdk-tools/sdk-php/nachrichten/
      */
+    const OM_CHANGEPARENT = 10403;
     /**
      * Kernel Message  ID
      */
@@ -683,7 +684,8 @@ class T2FModule extends IPSModule
             }
 
     }
-    
+
+
 }//class
 
 //------------------------------------------------------------------------------

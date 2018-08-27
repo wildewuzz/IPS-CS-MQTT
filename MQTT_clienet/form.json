@@ -1,7 +1,6 @@
 {
 	"elements":
 	[
-		{ "name": "Active", "type": "CheckBox", "caption": "Activate Instance" },
 		{ "name": "User", "type": "ValidationTextBox", "caption": "Benutzer" },
 		{ "name": "Password", "type": "PasswordTextBox", "caption": "Passwort" },
 		{ "type": "Select", "name": "ModuleType", "caption": "Modul Typ",

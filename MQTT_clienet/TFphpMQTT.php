@@ -48,7 +48,7 @@
 class phpMQTT {
 
 	private $msgid = 1;			/* counter for message id */
-	public $keepalive = 60;		/* default keepalive timmer */
+	public $keepalive = 30;		/* default keepalive timmer */
 	public $topics = array(); 	/* used to store currently subscribed topics */
 	public $clientid;			/* client id sent to brocker, string */
 	public $will;				/* stores the will of the client */
