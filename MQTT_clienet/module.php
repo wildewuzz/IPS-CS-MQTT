@@ -194,7 +194,9 @@ class IPS_KS_MQTTClient extends T2FModule {
                         // $this->MQTTDisconnect(2);
                         IPS_Sleep(500);
                         $this->debug(__CLASS__,__FUNCTION__."I/O Modul > Aktiviert 500 Millisekunden");
-                        $this->MQTTConnect();
+                        if (is_null($this->mqtt)) {
+                            $this->MQTTConnect();
+                        }
 
                         break;
                     case self::ST_INACTIV:
@@ -219,7 +221,7 @@ class IPS_KS_MQTTClient extends T2FModule {
             case 10001:  // IPS_KERNELSTARTED
                 IPS_LogMessage(__CLASS__,__FUNCTION__." IPS_KERNELSTARTED");
                 $this->mqtt = NULL;
-                $this->MQTTConnect();
+                //$this->MQTTConnect();
                 break;
             case 10403: // Parent changed
                 IPS_LogMessage(__CLASS__,__FUNCTION__." Parend changed");
