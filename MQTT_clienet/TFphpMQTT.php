@@ -98,7 +98,7 @@ class phpMQTT {
 		//No Will
 		$var = 0;
 		if($clean) $var+=2;
-		IPS_LogMessage($this->name, __FUNCTION__ . "(#".$this->InstanceID.")  Stricky".$this->will);
+		IPS_LogMessage($this->name, __FUNCTION__ . "(#".$this->will.")  Stricky");
 			
 		//Add will info to header
 		if($this->will != NULL){
