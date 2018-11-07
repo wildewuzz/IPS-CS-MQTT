@@ -106,7 +106,7 @@ class phpMQTT {
 			if($this->will['retain'])	$var += 32; //Set will retain
 		}
 
-		IPS_LogMessage($this->name, __FUNCTION__ . "(#".$this->InstanceID.")  Create Variable failed".$will);
+		IPS_LogMessage($this->name, __FUNCTION__ . "(#".$this->InstanceID.")  Create Variable failed".$this->will);
 		
 		if($this->username != NULL) $var += 128;	//Add username to header
 		if($this->password != NULL) $var += 64;	//Add password to header
