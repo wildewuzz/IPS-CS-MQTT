@@ -353,7 +353,7 @@ class IPS_CS_MQTTClient extends T2FModule {
         } else {
             $this->debug(__FUNCTION__, 'No Parent');
         }
-        $this->RegisterTimerNow('Ping', $this->mqtt->keepalive*1000,  'KSMQTT_TimerEvent('.$this->InstanceID.');');
+        $this->RegisterTimerNow('Ping', $this->mqtt->keepalive*1000,  'CSMQTT_TimerEvent('.$this->InstanceID.');');
         return $res;
 
     }//function
