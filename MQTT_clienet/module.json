@@ -1,6 +1,6 @@
 {
 	"id": "{EE0D345A-CF31-428A-A613-33CE98E752DD}",
-	"name": "IPS_KS_MQTTClient",
+	"name": "IPS_CS_MQTTClient",
 	"type": 2,
 	"vendor": "Christian Strickmann",
 	"aliases": ["IPS_CS_MQTTClient"],
