@@ -54,7 +54,7 @@ class phpMQTT {
 	public $will;				/* stores the will of the client */
 	private $username;			/* stores username */
 	private $password;			/* stores password */
-	private $lastwill;			/* stores password */
+	private $lastwill;			/* stores lastwill */
         public $onSend;   /* Function to send */
         public $onDebug = "";
         public $onReceive = "";
