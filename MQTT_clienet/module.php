@@ -11,7 +11,7 @@ include_once(__DIR__ . "/../module_helper.php");
 include_once(__DIR__ . "/TFphpMQTT.php");
 
 // Klassendefinition
-class IPS_KS_MQTTClient extends T2FModule {
+class IPS_CS_MQTTClient extends T2FModule {
     //------------------------------------------------------------------------------
     //module const and vars
     //------------------------------------------------------------------------------
