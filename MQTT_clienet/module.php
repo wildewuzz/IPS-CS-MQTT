@@ -135,6 +135,16 @@ class IPS_KS_MQTTClient extends T2FModule {
         return (String)IPS_GetProperty($this->InstanceID, 'Password');
     }
 
+      //------------------------------------------------------------------------------
+    /**
+     * Get Property category name to be created and used for Device Instnaces
+     * @return string
+     */
+    private function GetLastWill()
+    {
+        return (String)IPS_GetProperty($this->InstanceID, 'LastWill');
+    }
+  
     //------------------------------------------------------------------------------
     /**
      * Get Property Port
@@ -447,6 +457,7 @@ class IPS_KS_MQTTClient extends T2FModule {
                 if ($ok) {
                     $username=$this->GetUser();
                     $password=$this->GetPassword();
+                    $lastwill=$this->GetLastWill();
                     $owner = $this;
                     $this->mqtt = new phpMQTT($owner,$clientid);
                     // callback Funktionen
@@ -454,7 +465,7 @@ class IPS_KS_MQTTClient extends T2FModule {
                     $this->mqtt->onDebug = 'onDebug';
                     $this->mqtt->onReceive = 'onReceive';
                     $this->mqtt->debug = true;
-                    if ($this->mqtt -> connect(true,null,$username,$password)) {
+                    if ($this->mqtt -> connect(true,$lastwill,$username,$password)) {
                         $this->debug(__FUNCTION__,"Connected to ClientID $clientid");
                         $this->OSave($this->mqtt,"MQTT");
                         IPS_Sleep(500);
