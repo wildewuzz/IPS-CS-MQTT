@@ -71,6 +71,7 @@ class IPS_CS_MQTTClient extends T2FModule {
         $this->RegisterPropertyString('ClientID', 'symcon');
         $this->RegisterPropertyString('User', '');
         $this->RegisterPropertyString('Password', '');
+        $this->RegisterPropertyString('LastWill', 'Symcon Offline');
         //$this->RegisterPropertyBoolean('Active', false);
         $this->RegisterPropertyInteger('ModuleType', 2 );
         $this->RegisterPropertyInteger('script', 0);
