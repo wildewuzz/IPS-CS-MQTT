@@ -103,7 +103,8 @@ class phpMQTT {
 		//Add will info to header
 		if($this->will != NULL){
 			$var += 4; // Set will flag
-			$var += ($this->will['1'] << 3); //Set will qos
+			//$var += ($this->will['1'] << 3); //Set will qos
+			$var += 8; // Set will flag stricky
 			if($this->will['retain'])	$var += 32; //Set will retain
 		}
 	
